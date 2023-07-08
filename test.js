@@ -3,17 +3,10 @@ let jsonObject;
 let canvas;
 let popover;
 
-function ResizeButton() {
-    alert("ResizeButton");
-    darw();
-}
-
 function drawFunction() {
-    let width = jsonObject.objects[0].width;
-    let height = jsonObject.objects[0].height;
+    const { width, height } = jsonObject.objects[0];
     
-    canvas.setWidth(width);
-    canvas.setHeight(height);
+    canvas.setDimensions({ width, height }); 
 
     canvas.getObjects().forEach(function (obj) {
         obj.selectable = false;
@@ -24,7 +17,6 @@ function drawFunction() {
     canvas.renderAll();
 
     canvas.on("mouse:move", function (options) {
-        let isHovering = false;
         var p = canvas.getPointer(options.e);
         const mouseX = p.x;
         const mouseY = p.y;
@@ -51,14 +43,13 @@ function showPopover(object) {
     console.log("showing popver");
     popover.innerHTML = "Hello"; //square.popoverText;
     popover.style.display = "block";
-    //popover.style.left = 150; //canvas._offset.left + object.left + object.width + 10 + "px";
-    //popover.style.top = 150; //canvas._offset.top + object.top + object.height / 2 + "px";
-    //console.log(canvas._offset.left, object.left, object.width)
-    //popover.style.transform = `translateY(-50%)`;
-}
+    popover.style.left = `${canvas._offset.left + object.left + object.width + 10}px`; // Use template literals for concatenation
+    popover.style.top = `${canvas._offset.top + object.top + object.height / 2}px`; // Use template literals for concatenation
+    popover.style.transform = `translateY(-50%)`;
+  }
 
 function hidePopover() {
-    //popover.style.display = "none";
+    popover.style.display = "none";
 }
 
 function reviver(o, object) {
