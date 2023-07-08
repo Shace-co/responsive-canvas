@@ -6,12 +6,12 @@ let popover;
 function ResizeButton() {
     alert("ResizeButton");
     darw();
-    //preventDefault();
 }
 
 function drawFunction() {
     let width = jsonObject.objects[0].width;
     let height = jsonObject.objects[0].height;
+    
     canvas.setWidth(width);
     canvas.setHeight(height);
 
@@ -34,34 +34,32 @@ function drawFunction() {
                 const isHovering = mouseX >= obj.left && mouseX <= obj.left + obj.width && mouseY >= obj.top && mouseY <= obj.top + obj.height;
                 if (isHovering) {
                     showPopover(obj);
-                    //context.clearRect(square.x, square.y, square.width, square.height);
-                    obj.set("opacity", 0.9)
-                  } else {
-                    obj.set("opacity", 0.7)
+                    obj.set("opacity", 0.9);
+                } else {
+                    obj.set("opacity", 0.7);
                     hidePopover();
-                  }
+                }
             }
-            
-
         });
-
+        
+        canvas.calcOffset();
         canvas.renderAll();
     });
 }
 
 function showPopover(object) {
-    console.log('showing popver')
-    popover.innerHTML = "Hello" ; //square.popoverText;
+    console.log("showing popver");
+    popover.innerHTML = "Hello"; //square.popoverText;
     popover.style.display = "block";
     //popover.style.left = 150; //canvas._offset.left + object.left + object.width + 10 + "px";
     //popover.style.top = 150; //canvas._offset.top + object.top + object.height / 2 + "px";
     //console.log(canvas._offset.left, object.left, object.width)
     //popover.style.transform = `translateY(-50%)`;
-  }
+}
 
-  function hidePopover() {
+function hidePopover() {
     //popover.style.display = "none";
-  }
+}
 
 function reviver(o, object) {
     fabric.log(o, object);
@@ -84,10 +82,8 @@ async function getTheJson(url) {
 (async function () {
     canvas = window._canvas = new fabric.Canvas("canvas", {});
     fabric.Object.prototype.set({});
+    
     popover = document.getElementById("popover");
-
-
     jsonObject = await getTheJson(jsonFilePath);
-
     draw();
 })();
