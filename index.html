@@ -15,7 +15,8 @@
       color: white;
       padding: 10px;
       border-radius: 4px;
-      display: none;
+      z-index: 999;
+      display: block;
     }
   </style>
 </head>
@@ -55,7 +56,6 @@
       image.src = "https://images.edrawsoft.com/articles/office-layout/2-office-layout-example.png";
 
       const popover = document.getElementById("popover");
-
 
       image.onload = function() {
         canvas.width = image.width;
