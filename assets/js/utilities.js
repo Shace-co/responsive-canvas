@@ -1,6 +1,7 @@
 
 export  const isRoom = (object) => {
-    return object.id !== "workspace" && object.type !== "image";
+    //console.log("isRoom", object)
+    return object?.id !== "workspace" && object?.type !== "image";
 };
 
 export  const getTheJson = async (url) => {

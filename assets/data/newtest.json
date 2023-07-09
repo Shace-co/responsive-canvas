@@ -2,6 +2,7 @@
 	"version": "5.3.0",
 	"objects": [
 		{
+			"bookable": true,
 			"type": "rect",
 			"version": "5.3.0",
 			"originX": "left",
@@ -11,14 +12,6 @@
 			"width": 1700,
 			"height": 760,
 			"fill": "rgba(0,124,254,1)",
-			"stroke": null,
-			"strokeWidth": 1,
-			"strokeDashArray": null,
-			"strokeLineCap": "butt",
-			"strokeDashOffset": 0,
-			"strokeLineJoin": "miter",
-			"strokeUniform": false,
-			"strokeMiterLimit": 4,
 			"scaleX": 1,
 			"scaleY": 1,
 			"angle": 0,
