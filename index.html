@@ -1,154 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Canvas with Background Image</title>
-  <style>
-    #canvas {
-      border: 1px solid black;
-      max-width: 100%;
-      height: auto;
-    }
-
-    .popover {
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 10px;
-      border-radius: 4px;
-      z-index: 999;
-      display: block;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="canvas"></canvas>
-  <div id="popover" class="popover"></div>
-
-  <script>
-    const squares = [
-      {
-        x: 58,
-        y: 130,
-        width: 168,
-        height: 254,
-        color: "#00FF00",
-        popoverText: "Popover 1",
-      },
-
-      {
-        x: 350,
-        y: 320,
-        width: 70,
-        height: 80,
-        color: "#FF0000",
-        popoverText: "Popover 1",
-      },
-      // Add more square objects as needed
-    ];
-
-    const initialTransparency = 0.3;
-    const hoverTransparency = 0.5;
-
-    window.onload = function() {
-      const canvas = document.getElementById("canvas");
-      const context = canvas.getContext("2d");
-      const image = new Image();
-      image.src = "https://images.edrawsoft.com/articles/office-layout/2-office-layout-example.png";
-
-      const popover = document.getElementById("popover");
-
-      image.onload = function() {
-        canvas.width = image.width;
-        canvas.height = image.height;
-
-        context.drawImage(image, 0, 0, image.width, image.height);
-
-        squares.forEach(square => {
-          drawSquare(square);
-        });
-      };
-
-      function drawSquare(square) {
-        context.fillStyle = changeTransparency(square.color, initialTransparency);
-        context.fillRect(square.x, square.y, square.width, square.height);
-      }
-
-      function changeTransparency(hexColor, alpha) {
-        const rgb = hexToRgb(hexColor);
-        return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
-      }
-
-      function hexToRgb(hexColor) {
-        const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        const fullHexRegex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
-
-        const result = fullHexRegex.exec(hexColor) || shorthandRegex.exec(hexColor);
-
-        return {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        };
-      }
-
-      canvas.addEventListener("mousemove", function(event) {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-        let isHovering = false;
-
-        context.drawImage(image, 0, 0, image.width, image.height);
-
-        squares.forEach(square => {
-          if (
-            mouseX >= square.x &&
-            mouseX <= square.x + square.width &&
-            mouseY >= square.y &&
-            mouseY <= square.y + square.height
-          ) {
-            isHovering = true;
-
-            showPopover(square, event.clientY);
-
-            //context.clearRect(square.x, square.y, square.width, square.height);
-            context.fillStyle = changeTransparency(square.color, hoverTransparency);
-            context.fillRect(square.x, square.y, square.width, square.height);
-          } else {
-            //context.clearRect(square.x, square.y, square.width, square.height);
-            context.fillStyle = changeTransparency(square.color, initialTransparency);
-            context.fillRect(square.x, square.y, square.width, square.height);
-          }
-        });
-
-        if (!isHovering) {
-          hidePopover();
-        }
-
-      });
-
-      function showPopover(square, mouseY) {
-        popover.innerHTML = square.popoverText;
-        popover.style.display = "block";
-        popover.style.left = canvas.offsetLeft + square.x + square.width + 10 + "px";
-        popover.style.top = canvas.offsetTop + square.y + square.height / 2 + "px";
-        popover.style.transform = `translateY(-50%)`;
-      }
-
-      function hidePopover() {
-        popover.style.display = "none";
-      }
-
-      window.addEventListener("resize", function() {
-        canvas.width = image.width;
-        canvas.height = image.height;
-
-        context.drawImage(image, 0, 0, image.width, image.height);
-
-        squares.forEach(square => {
-          drawSquare(square);
-        });
-      });
-    };
-  </script>
-</body>
+    <head>
+        <title>Load JSON into Fabric.js Canvas</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+        <script defer src="./assets/js/main.js" type="module"></script>
+        <link rel="stylesheet" href="./assets/css/styles.css">
+    </head>
+    <body>
+        <div id="popover" class="popover">Hi</div>
+        <div id="main">
+            <div id="my-container">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div> 
+    </body>
 </html>
